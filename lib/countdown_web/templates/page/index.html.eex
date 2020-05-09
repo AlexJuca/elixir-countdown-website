@@ -1,5 +1,6 @@
 
-<ul>
+<%= if @current_user do %>
+
 <%= for event <- @events do %>
    <div class="jumbotron">
       <div class='header-title'>
@@ -23,3 +24,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<% end %>
