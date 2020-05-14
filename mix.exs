@@ -20,7 +20,7 @@ defmodule Countdown.MixProject do
   def application do
     [
       mod: {Countdown.Application, []},
-      extra_applications: [:ueberauth, :ueberauth_auth0, :logger, :runtime_tools]
+      extra_applications: [:ueberauth, :oauth2, :logger, :runtime_tools]
     ]
   end
 
@@ -46,7 +46,7 @@ defmodule Countdown.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:ueberauth, "~> 0.4"},
-      {:ueberauth_auth0, "~> 0.3"},
+      {:oauth2, "~> 2.0"},
       {:poison, "~> 3.1"}
     ]
   end

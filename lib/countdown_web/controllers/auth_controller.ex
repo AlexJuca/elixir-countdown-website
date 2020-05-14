@@ -2,10 +2,6 @@ defmodule CountdownWeb.AuthController do
     use CountdownWeb, :controller
     alias CountdownWeb.Router.Helpers
 
-    plug Ueberauth
-
-    alias Ueberauth.Strategy.Helpers
-
     def logout(conn, _params) do
       conn
       |> put_flash(:info, "You have been logged out!")
@@ -13,23 +9,17 @@ defmodule CountdownWeb.AuthController do
       |> redirect(to: "/")
     end
 
-    def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-      case UserFromAuth.find_or_create(auth) do
-        {:ok, user} -> 
-          conn
-          |> put_flash(:info, "Successfully authenticated as " <> user.name <> ".")
-          |> put_session(:current_user, user)
-          |> redirect(to: "/")
-        {:error, reason} -> 
-            conn
-            |> put_flash(:error, reason)
-            |> redirect(to: "/")
-      end
+    def request(conn, params) do
+      url = Okta.authorize_url!()
+      IO.inspect url
+      conn
+      |> redirect(external: url)
     end
 
-    def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
+    def callback(conn, %{"provider" => provider, "code" => code, "state" => state}) do
+      client = Okta.get_token!(code: code)
+      IO.inspect client
       conn
-      |> put_flash(:error, "Failed to authenticate.")
-      |> redirect(to: "/")
+      |> send_resp(200, "")
     end
 end

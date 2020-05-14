@@ -1,6 +1,5 @@
 defmodule CountdownWeb.Router do
   use CountdownWeb, :router
-  require Ueberauth
 
   pipeline :browser do
     plug :accepts, ["html"]
