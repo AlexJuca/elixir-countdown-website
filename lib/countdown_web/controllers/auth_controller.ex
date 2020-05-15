@@ -17,9 +17,13 @@ defmodule CountdownWeb.AuthController do
     end
 
     def callback(conn, %{"provider" => provider, "code" => code, "state" => state}) do
-      client = Okta.get_token!(code: code)
-      IO.inspect client
+      client = Okta.get_token_without_auth!(code: code)
+      {:ok, resp} = Okta.get_user_info(client)
+      user = resp.body
       conn
-      |> send_resp(200, "")
+      |> put_session(:current_user, user)
+      |> put_session(:access_token, client.token.access_token)
+      |> put_flash(:info, "Welcome #{user["given_name"]}")
+      |> redirect(to: "/")
     end
 end
