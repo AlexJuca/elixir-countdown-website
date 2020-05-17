@@ -1,5 +1,4 @@
 defmodule Countdown.Accounts do
-  alias Countdown.Accounts
   @moduledoc """
   The Accounts context.
   """
