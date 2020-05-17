@@ -47,7 +47,7 @@ defmodule Countdown.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:ex_oauth2, "~> 2.0.1"},
       {:poison, "~> 3.1"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 2.0"}
     ]
   end
 
