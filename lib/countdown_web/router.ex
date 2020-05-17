@@ -25,6 +25,7 @@ defmodule CountdownWeb.Router do
 
     get "/", PageController, :index
     resources "/events", EventController
+    resources "/register", UserController, only: [:create, :new]
     get "/logout", AuthController, :logout
   end
 
