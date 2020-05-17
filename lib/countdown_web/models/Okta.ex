@@ -16,7 +16,7 @@ defmodule Okta do
     end
 
     def authorize_url! do
-        uri = ExOAuth2.Client.authorize_url!(client(), response_type: "code", scope: "openid profile")
+        uri = ExOAuth2.Client.authorize_url!(client(), response_type: "code", scope: "openid profile email", idp: "0oabpjs7kGojVfWuJ4x6")
         |> URI.parse()
         |> URI.to_string()
         "#{uri}&state=#{Base.encode16(:crypto.strong_rand_bytes(12))}&nonce=98aGa"
